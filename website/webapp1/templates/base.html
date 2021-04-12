@@ -1,0 +1,721 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'webapp1/images/icons/favicon.jpeg' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/fonts/linearicons-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/slick/slick.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/MagnificPopup/magnific-popup.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'webapp1/css/main.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--===============================================================================================-->
+</head>
+<body class="animsition">
+	
+	<!-- Header -->
+	<header>
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over $100
+					</div>
+
+					<div class="right-top-bar flex-w h-full">
+						<a class="flex-c-m trans-04 p-lr-25">
+							Help & FAQs
+						</a>
+
+						<a class="flex-c-m trans-04 p-lr-25">
+							My Account
+						</a>
+
+						<a class="flex-c-m trans-04 p-lr-25">
+							EN
+						</a>
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							USD
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
+				<nav class="limiter-menu-desktop container">
+					
+					<!-- Logo desktop -->
+					<div id="logo" style="padding:10px 0">
+<!--					<a href="#" class="logo">-->
+<!--						<img src="{% static 'webapp1/images/icons/favicon.jpeg' %}" alt="IMG-LOGO" width="70" height="70">-->
+<!--					</a>-->
+                        <a href="/"><h5 class="ltext-201 cl2 p-t-25 p-b-30 pr-5" style="font-family:courier,arial,helvetica; color:#4E95F0;">Fab<b>mom</b></h5></a>
+					</div>
+
+					<!-- Menu desktop -->
+					<div class="menu-desktop">
+						<ul class="main-menu">
+							<li class="{% block index %}{% endblock %}">
+								<a href="{% url 'index' %}">Home</a>
+<!--								<ul class="sub-menu">-->
+<!--									<li><a href="index.html">Homepage 1</a></li>-->
+<!--									<li><a href="home-02.html">Homepage 2</a></li>-->
+<!--									<li><a href="home-03.html">Homepage 3</a></li>-->
+<!--								</ul>-->
+							</li>
+
+<!--							<li class="active-menu">-->
+<!--								<a href="product.html">Shop</a>-->
+<!--							</li>-->
+
+<!--							<li class="label1" data-label1="hot">-->
+<!--								<a href="shoping-cart.html">Features</a>-->
+<!--							</li>-->
+
+							<li class="{% block blog %}{% endblock %}">
+								<a href="{% url 'blog' %}">Blog</a>
+							</li>
+
+							<li class="{% block about %}{% endblock %}">
+								<a href="{% url 'about' %}">About</a>
+							</li>
+
+							<li class="{% block contact %}{% endblock %}">
+								<a href="{% url 'contact' %}">Contact</a>
+							</li>
+
+
+
+							{% if user.is_authenticated %}
+
+
+
+							<li>
+								<a href="#">Hi, {{user.first_name}}</a>
+								<ul class="sub-menu">
+									<li><a href="{% url 'profile' %}">My Profile</a></li>
+									<li><a href="{% url 'my_orders' %}">My Orders</a></li>
+									<li><a href="{% url 'logout_func' %}">Logout</a></li>
+								</ul>
+							</li>
+
+							{% else %}
+							<li class="{% block signup %}{% endblock %}">
+								<a href="{% url 'signup_login' %}">Login/Sign Up</a>
+							</li>
+							{% endif %}
+
+						</ul>
+					</div>	
+
+					<!-- Icon header -->
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
+						</div>
+
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart" data-notify="">
+							<i class="zmdi zmdi-shopping-cart"></i><small><sub class="badge badge-warning" style="color:black;"><span id="product_cart">0</span></sub></small>
+						</div>
+
+						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
+					</div>
+				</nav>
+			</div>	
+		</div>
+
+		<!-- Header Mobile -->
+		<div class="wrap-header-mobile">
+			<!-- Logo moblie -->		
+			<div class="logo-mobile">
+<!--				<a href="index.html"><img src="{% static 'webapp1/images/icons/favicon.jpeg' %}" alt="IMG-LOGO"></a>-->
+
+                <a href="/"><h5 style="font-family:courier,arial,helvetica; color:#4E95F0; font-size:40px;">Fab<b>mom</b></h5></a>
+            </div>
+			<!-- Icon header -->
+			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+					<i class="zmdi zmdi-search"></i>
+				</div>
+
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 js-show-cart" data-notify="2">
+					<i class="zmdi zmdi-shopping-cart"></i><small><sub class="badge badge-warning" style="color:black;"><span id="product_cart2">0</span></sub></small>
+				</div>
+
+				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+					<i class="zmdi zmdi-favorite-outline"></i>
+				</a>
+			</div>
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</div>
+		</div>
+
+
+		<!-- Menu Mobile -->
+		<div class="menu-mobile">
+			<ul class="topbar-mobile">
+				<li>
+					<div class="left-top-bar">
+						Free shipping for standard order over $100
+					</div>
+				</li>
+
+				<li>
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							Help & FAQs
+						</a>
+
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							My Account
+						</a>
+
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							EN
+						</a>
+
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							USD
+						</a>
+					</div>
+				</li>
+			</ul>
+
+			<ul class="main-menu-m">
+				<li>
+					<a href="index.html">Home</a>
+<!--					<ul class="sub-menu-m">-->
+<!--						<li><a href="index.html">Homepage 1</a></li>-->
+<!--						<li><a href="home-02.html">Homepage 2</a></li>-->
+<!--						<li><a href="home-03.html">Homepage 3</a></li>-->
+<!--					</ul>-->
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+				</li>
+
+				<li>
+								<a href="{% url 'blog' %}">Blog</a>
+							</li>
+
+							<li>
+								<a href="{% url 'about' %}">About</a>
+							</li>
+
+							<li>
+								<a href="{% url 'contact' %}">Contact</a>
+							</li>
+
+							{% if user.is_authenticated %}
+
+							<li>
+								<a href="#">Hi, {{user.first_name}}</a>
+								<ul class="sub-menu">
+									<li><a href="{% url 'profile' %}">My Profile</a></li>
+									<li><a href="{% url 'my_orders' %}">My Orders</a></li>
+									<li><a href="{% url 'logout_func' %}">Logout</a></li>
+								</ul>
+							</li>
+
+							{% else %}
+							<li>
+								<a href="{% url 'signup_login' %}">Login/Sign Up</a>
+							</li>
+							{% endif %}
+			</ul>
+		</div>
+
+		<!-- Modal Search -->
+		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+			<div class="container-search-header">
+				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+					<img src="{% static 'webapp1/images/icons/icon-close2.png' %}" alt="CLOSE">
+				</button>
+
+				<form class="wrap-search-header flex-w p-l-15" method="GET" action="{% url 'product_search' %}">
+					<button class="flex-c-m trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+					<input class="plh3" type="text" name="search" placeholder="Search...">
+				</form>
+			</div>
+		</div>
+	</header>
+
+	<!-- Cart -->
+	<div class="wrap-header-cart js-panel-cart">
+		<div class="s-full js-hide-cart"></div>
+
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+					Your Cart
+				</span>
+
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
+			
+			<div class="header-cart-content flex-w js-pscroll">
+<!--				<ul class="header-cart-wrapitem w-full">-->
+<!--					<li class="header-cart-item flex-w flex-t m-b-12">-->
+<!--						<div class="header-cart-item-img">-->
+<!--							<img src="{% static 'webapp1/images/item-cart-01.jpg' %}" alt="IMG">-->
+<!--						</div>-->
+
+<!--						<div class="header-cart-item-txt p-t-8">-->
+<!--							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">-->
+<!--								White Shirt Pleat-->
+<!--							</a>-->
+
+<!--							<span class="header-cart-item-info">-->
+<!--								1 x $19.00-->
+<!--							</span>-->
+<!--						</div>-->
+<!--					</li>-->
+
+<!--					<li class="header-cart-item flex-w flex-t m-b-12">-->
+<!--						<div class="header-cart-item-img">-->
+<!--							<img src="{% static 'webapp1/images/item-cart-02.jpg' %}" alt="IMG">-->
+<!--						</div>-->
+
+<!--						<div class="header-cart-item-txt p-t-8">-->
+<!--							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">-->
+<!--								Converse All Star-->
+<!--							</a>-->
+
+<!--							<span class="header-cart-item-info">-->
+<!--								1 x $39.00-->
+<!--							</span>-->
+<!--						</div>-->
+<!--					</li>-->
+
+<!--					<li class="header-cart-item flex-w flex-t m-b-12">-->
+<!--						<div class="header-cart-item-img">-->
+<!--							<img src="{% static 'webapp1/images/item-cart-03.jpg' %}" alt="IMG">-->
+<!--						</div>-->
+
+<!--						<div class="header-cart-item-txt p-t-8">-->
+<!--							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">-->
+<!--								Nixon Porter Leather-->
+<!--							</a>-->
+
+<!--							<span class="header-cart-item-info">-->
+<!--								1 x $17.00-->
+<!--							</span>-->
+<!--						</div>-->
+<!--					</li>-->
+<!--				</ul>-->
+
+<!--				<div class="w-full">-->
+<!--					<div class="header-cart-total w-full p-tb-40">-->
+<!--						Total: $<span id="total_prices">0</span>-->
+<!--					</div>-->
+
+<!--					<div class="header-cart-buttons flex-w w-full">-->
+<!--						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">-->
+<!--							View Cart-->
+<!--						</a>-->
+
+<!--						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">-->
+<!--							Check Out-->
+<!--						</a>-->
+<!--					</div>-->
+<!--				</div>-->
+
+				<div id="sideshow"></div>
+				
+
+			</div>
+		</div>
+	</div>
+<br>
+<br>
+<br>
+    <div class="mb-2"></div>
+
+
+
+    {% block body %}{% endblock %}
+
+
+
+
+		<!-- Footer -->
+	<footer class="bg3 p-t-75 p-b-32">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Categories
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Women
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Men
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Shoes
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Watches
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Help
+					</h4>
+
+					<ul>
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Track Order
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Returns
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								Shipping
+							</a>
+						</li>
+
+						<li class="p-b-10">
+							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+								FAQs
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						GET IN TOUCH
+					</h4>
+
+					<p class="stext-107 cl7 size-201">
+						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+					</p>
+
+					<div class="p-t-27">
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-facebook"></i>
+						</a>
+
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-instagram"></i>
+						</a>
+
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-pinterest-p"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">
+						Newsletter
+					</h4>
+
+					<form>
+						<div class="wrap-input1 w-full p-b-4">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+							<div class="focus-input1 trans-04"></div>
+						</div>
+
+						<div class="p-t-18">
+							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								Subscribe
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1">
+						<img src="{% static 'webapp1/' %}images/icons/icon-pay-01.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'webapp1/' %}images/icons/icon-pay-02.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'webapp1/' %}images/icons/icon-pay-03.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'webapp1/' %}images/icons/icon-pay-04.png" alt="ICON-PAY">
+					</a>
+
+					<a href="#" class="m-all-1">
+						<img src="{% static 'webapp1/' %}images/icons/icon-pay-05.png" alt="ICON-PAY">
+					</a>
+				</div>
+
+				<p class="stext-107 cl6 txt-center">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+				</p>
+			</div>
+		</div>
+	</footer>
+
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'webapp1/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/select2/select2.min.js' %}"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'webapp1/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/slick/slick.min.js' %}"></script>
+	<script src="{% static 'webapp1/js/slick-custom.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/parallax100/parallax100.js' %}"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/isotope/isotope.pkgd.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/sweetalert/sweetalert.min.js' %}"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e){
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(function(){
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'webapp1/js/main.js' %}"></script>
+
+
+<script>
+	// find out the cart Item from localStorage
+	console.log('working');
+	if (localStorage.getItem('product_cart')==null){
+	var product_cart={};
+	console.log('none')
+	}
+	else{
+	product_cart = JSON.parse(localStorage.getItem('product_cart'));
+	console.log(product_cart)
+	updateCart(product_cart)
+	}
+
+
+//update the cart
+function updateCart(product_cart){
+	var sum = 0;
+	for (var item in product_cart){
+		sum = sum + product_cart[item][0]
+
+	}
+	localStorage.setItem('product_cart', JSON.stringify(product_cart))
+	document.getElementById('product_cart').innerHTML = sum;
+	document.getElementById('product_cart2').innerHTML = sum;
+	updatesideshow(product_cart);
+
+
+}
+
+
+
+//add sideshow to cart
+
+updatesideshow(product_cart);
+function updatesideshow(product_cart){
+	console.log('we are in updatesideshow');
+	var popStr = "";
+	popStr = popStr + "<div class='mx-2 my-2'>";
+
+	var i =1;
+	var single_price_qty = 0;
+	var total_price = 0;
+
+	for (var item in product_cart){
+		// popStr = popStr + "<b>" + i + "</b>. ";
+		popStr = popStr + `<div class="row"><div class="col-md-4"><div class="header-cart-item-img">
+							<img src="${product_cart[item][3]}" alt="IMG">
+						</div></div><div class="col-md-8">`;
+
+		single_price_qty = product_cart[item][0]*product_cart[item][2];
+		// console.log('hi..'+single_price_qty)
+
+		total_price = total_price + single_price_qty;
+
+		popStr = popStr + product_cart[item][1] + "<br> Qty: " + product_cart[item][0] + '<br>Price: $' + product_cart[item][2] + "<br>" + product_cart[item][0] + " x $" + product_cart[item][2] + " = $" + single_price_qty  + "</div></div><br><br><br>";
+		i = i+1;
+
+	}
+	popStr = popStr + "</div><b>Total: $"+ total_price +"</b><br><br><div class='row'><div class='col-md-6'><a href='/cart'><button class='flex-c-m stext-100 cl0 size-106 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10' id='checkout'>View Cart</button></a></div><div class='col-md-6'><a href='/'><button class='flex-c-m stext-100 cl0 size-106 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10' id='clearCart' onclick='clearCart()'>Clear Cart</button></a></div></div> "
+
+	console.log(popStr);
+	document.getElementById('sideshow').innerHTML = popStr;
+	document.getElementById('total_prices').innerHTML = total_price;
+
+}
+
+
+
+//clear cart
+function clearCart(product_cart){
+	// product_cart = JSON.parse(localStorage.getItem('product_cart'));
+	// for (var item in product_cart){
+	// 	document.getElementById('div'+item).innerHTML = '<a id="' + item + '" class="tooltip-1 product_cart" data-toggle="tooltip" data-placement="left"><i class="ti-shopping-cart"></i><span>Add to cart</span></a>'
+	// }
+	localStorage.clear();
+	product_cart={};
+	updateCart(product_cart);
+}
+
+
+
+</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+{% block js %}{% endblock %}
+
+
+</body>
+</html>

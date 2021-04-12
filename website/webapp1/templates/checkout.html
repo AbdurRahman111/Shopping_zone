@@ -1,0 +1,482 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Checkout - Fabmom{% endblock %}
+
+
+{% block body %}
+
+
+
+<head>
+	<title>Shoping Cart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body class="animsition">
+
+
+
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+
+
+	<!-- Shoping Cart -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart" id="items">
+								<tr class="table_head">
+									<th class="column-1"></th>
+									<th class="column-2"></th>
+									<th class="column-3"></th>
+									<th class="column-5"></th>
+								</tr>
+
+                                <tr>
+                                    <td colspan="5">
+
+                    <div class="size-400 bor10 p-lr-70 p-t-30 p-b-70 p-lr-15-lg w-full-md">
+					<form action="{% url 'checkout' %}" method="POST">{% csrf_token %}
+						<h4 class="mtext-105 cl2 txt-center p-b-20">
+							User Details
+						</h4>
+
+						{% if erorr_message %}
+							<h7 class="mb-2"><p class="text-center" style="color:red;">{{erorr_message}}</p></h7>
+							{% endif %}
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="bor8 m-b-20 how-pos4-parent">
+									<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name"value="{{first_name}}" placeholder="First Name" required>
+									<img class="how-pos4 pointer-none" src="{% static 'webapp1/images/icons/user.png' %}" alt="ICON" height="20" width="30">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="bor8 m-b-20 how-pos4-parent">
+									<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="last_name" value="{{last_name}}" placeholder="Last Name" required>
+									<img class="how-pos4 pointer-none" src="{% static 'webapp1/images/icons/user.png' %}" alt="ICON" height="20" width="30">
+								</div>
+							</div>
+						</div>
+
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" value="{{user.email}}" placeholder="Your Email Address" required>
+							<img class="how-pos4 pointer-none" src="{% static 'webapp1/images/icons/icon-email.png' %}" alt="ICON">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="phone" placeholder="Phone No." required>
+							<img class="how-pos4 pointer-none" src="{% static 'webapp1/images/icons/phone.png' %}" alt="ICON" height="25" width="25">
+
+						</div>
+
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="country" placeholder="State/Country" required>
+
+						</div>
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="street" placeholder="Street Address" required>
+						</div>
+
+
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="bor8 m-b-20 how-pos4-parent">
+									<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="city" placeholder="Town / City" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="bor8 m-b-20 how-pos4-parent">
+									<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="zip" placeholder="Postcode / ZIP *" required>
+								</div>
+							</div>
+						</div>
+
+
+<!--						<div class="bor8 m-b-30">-->
+<!--							<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg" placeholder="How Can We Help?"></textarea>-->
+<!--						</div>-->
+
+						<input type="hidden" id="prod_details" name="prod_details">
+						<input type="hidden" id="checkout_money" name="checkout_money">
+
+						<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+							Checkout
+						</button>
+<!--						<a href="{% url 'payment' %}" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">-->
+<!--							Checkout-->
+<!--						</a>-->
+					</form>
+
+				</div></td>
+                                </tr>
+
+							</table>
+
+
+
+						</div>
+
+
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+<!--								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">-->
+
+								<div class="">
+
+								</div>
+							</div>
+
+							<div class="">
+								<span id="totalprice2"></span>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Products
+						</h4>
+
+                        <div id="items2" class="mb-5">
+
+
+                            </div>
+
+                        <h4 class="mtext-109 cl2 p-b-30">
+							Price
+						</h4>
+
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2">
+									Subtotal :
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									$<span id="totalprice"></span>
+								</span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2">
+									Discount :
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									$<span id="discount"></span>
+								</span>
+							</div>
+						</div>
+
+						<div class="flex-w flex-t bor12 p-b-13">
+							<div class="size-208">
+								<span class="stext-110 cl2">
+									Delivery :
+								</span>
+							</div>
+
+							<div class="size-209">
+								<span class="mtext-110 cl2">
+									$<span id="delivery"></span>
+								</span>
+							</div>
+						</div>
+
+
+
+
+
+<!--						<div class="flex-w flex-t bor12 p-t-15 p-b-30">-->
+<!--							<div class="size-208 w-full-ssm">-->
+<!--								<span class="stext-110 cl2">-->
+<!--									Shipping:-->
+<!--								</span>-->
+<!--							</div>-->
+
+<!--							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">-->
+<!--								<p class="stext-111 cl6 p-t-2">-->
+<!--									There are no shipping methods available. Please double check your address, or contact us if you need any help.-->
+<!--								</p>-->
+<!--								-->
+<!--								<div class="p-t-15">-->
+<!--									<span class="stext-112 cl8">-->
+<!--										Calculate Shipping-->
+<!--									</span>-->
+
+<!--									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">-->
+<!--										<select class="js-select2" name="time">-->
+<!--											<option>Select a country...</option>-->
+<!--											<option>USA</option>-->
+<!--											<option>UK</option>-->
+<!--										</select>-->
+<!--										<div class="dropDownSelect2"></div>-->
+<!--									</div>-->
+
+<!--									<div class="bor8 bg0 m-b-12">-->
+<!--										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">-->
+<!--									</div>-->
+
+<!--									<div class="bor8 bg0 m-b-22">-->
+<!--										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip">-->
+<!--									</div>-->
+<!--									-->
+<!--									<div class="flex-w">-->
+<!--										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">-->
+<!--											Update Totals-->
+<!--										</div>-->
+<!--									</div>-->
+<!--										-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2">
+									$<span id="checkout_total"></span>
+								</span>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+
+
+</body>
+
+
+{% endblock %}
+
+
+{% block js %}
+
+<script>
+	// console.log('working');
+
+
+var all_prod=[];
+var all_prod_price=[];
+var all_prod_qty=[];
+
+
+var prod_details=[];
+
+
+var sum=0;
+var itemtotalprice=0;
+var totalprice=0;
+
+if ($.isEmptyObject(product_cart)){
+	mystr = `<p class="text-center">Your Cart Is Empty. Add Some Product for checkout!!</p>`
+	mystr = `<tr class="table_row divproduct">
+									<td colspan="5"><h5 class="text-center">Your Cart Is Empty. Add Some Product for checkout!!</h5></td></tr>`
+	$('#items').append(mystr);
+
+		delivery=0;
+		discount=0;
+		checkout_total =0;
+}
+else{
+	for (item in product_cart){
+	    // console.log('product ase')
+		let name = product_cart[item][1];
+		let qty = product_cart[item][0]
+		let itemprice=product_cart[item][2]
+		let itempic=product_cart[item][3]
+
+
+		sum = sum + qty;
+		itemtotalprice=qty* itemprice;
+		totalprice = totalprice + qty* itemprice;
+
+
+		prod_details= prod_details + `Product Name : ${name}, Product Quantity : ${qty}, Product Single Price : $ ${itemprice}, `
+
+		//all_prod=all_prod+', '+name
+		all_prod.push(name)
+		all_prod_price.push(itemprice)
+		all_prod_qty.push(qty)
+
+
+
+		mystr2 = `<ul class="header-cart-wrapitem w-full">
+					<li class="header-cart-item flex-w flex-t m-b-12">
+						<div class="header-cart-item-img">
+							<img src="${itempic}" alt="IMG">
+						</div>
+
+						<div class="header-cart-item-txt p-t-8">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								${name}
+							</a>
+
+							<span class="header-cart-item-info">
+								Qty : ${qty}
+							</span>
+
+							<span class="header-cart-item-info">
+								Price : ${itemtotalprice}
+							</span>
+
+
+						</div>
+					</li>
+					</ul>`
+
+		$('#items2').append(mystr2);
+
+	}
+
+        delivery=125;
+		discount=(totalprice/100)*10;
+		checkout_total =totalprice+delivery-discount;
+		checkout_money=checkout_total;
+}
+// document.getElementById('product_cart').innerHTML = sum;
+document.getElementById('totalprice').innerHTML = totalprice
+// document.getElementById('totalprice2').innerHTML = totalprice
+
+document.getElementById('delivery').innerHTML = delivery
+document.getElementById('discount').innerHTML = discount + " (10% Discount) "
+document.getElementById('checkout_total').innerHTML = checkout_total
+
+
+// $('#items_json').val(JSON.stringify(product_cart));
+const a = JSON.stringify(product_cart)
+$('#items_json').val(a);
+
+$('#all_prod').val(JSON.stringify(all_prod));
+$('#all_prod_price').val(JSON.stringify(all_prod_price));
+$('#all_prod_qty').val(JSON.stringify(all_prod_qty));
+
+$('#prod_details').val(JSON.stringify(prod_details))
+
+
+$('#checkout_money').val(JSON.stringify(checkout_total));
+
+{% if Thank %}
+// alert('Thanks For ordering. Your Order Id is {{order_id}}. Check Your Email.')
+localStorage.clear();
+document.location='payment'
+{% endif %}
+
+
+
+//update the cart
+function updateCart(product_cart){
+	var sum = 0;
+	for (var item in product_cart){
+		sum = sum + product_cart[item][0]
+		// console.log(item)
+	}
+	localStorage.setItem('product_cart', JSON.stringify(product_cart))
+	document.getElementById('product_cart').innerHTML = sum;
+	document.location='cart';
+	// updatePopover(product_cart);
+}
+
+
+// if plus or minus button clicked, change the card as well as display value
+$('.divproduct').on("click", "div.minus", function(){
+	console.log('minus_clicked');
+	var a = this.id.slice(12, );
+	console.log(a)
+	product_cart['product' + a][0] = product_cart['product' + a][0] - 1;
+	product_cart['product' + a][0] = Math.max(0, product_cart['product' + a][0]);
+	document.getElementById('valproduct'+a).value = product_cart['product' + a][0];
+	updateCart(product_cart)
+});
+
+$('.divproduct').on("click", "div.plus", function(){
+	console.log('plus_clicked');
+	var a = this.id.slice(11, );
+	console.log(a)
+	product_cart['product' + a][0] = product_cart['product' + a][0] + 1;
+	document.getElementById('valproduct'+a).value = product_cart['product' + a][0];
+	updateCart(product_cart)
+});
+
+
+
+</script>
+
+
+{% endblock %}

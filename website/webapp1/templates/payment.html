@@ -1,0 +1,436 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Payment - Fabmom{% endblock %}
+
+
+{% block body %}
+
+{% if messages %}
+<!--{% for message in messages %}-->
+
+<div class="container">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <h5 class="text-center"> {{messages}}</h5>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+</div>
+
+<!--{% endfor %}-->
+{% endif %}
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<style>
+  .StripeElement {
+    box-sizing: border-box;
+
+    height: 40px;
+
+    padding: 10px 12px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+  .form-row,
+  .submit-btn,
+  .card-element {
+    width: 100%;
+  }
+  .form-row {
+    padding: 2em;
+  }
+  #paypal-button-container {
+    margin-top: 2em;
+    width: 100%;
+  }
+</style>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body class="animsition">
+
+
+
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+
+
+	<!-- Shoping Cart -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart" id="items">
+								<tr class="table_head">
+									<th class="column-1"></th>
+									<th class="column-2"></th>
+									<th class="column-3"></th>
+									<th class="column-5"></th>
+								</tr>
+
+                                <tr>
+                                    <td colspan="5">
+
+                    <div class="size-400 bor10 p-lr-70 p-t-30 p-b-70 p-lr-15-lg w-full-md">
+					<h3 class="text-center">Credit Card</h3>
+
+
+                        <form method="POST" id="payment-form" class="payment-form">
+                            {% csrf_token %}
+                            <div class="form-row">
+                              <label for="card-element">
+                                Credit or debit card
+                              </label>
+                              <div id="card-element" class="card-element"></div>
+                              <div id="card-errors" role="alert"></div>
+                              <button class="btn btn-info submit-btn" type="submit">
+                                Submit Payment
+                              </button>
+
+                              <div id="paypal-button-container"></div>
+                            </div>
+                          </form>
+
+
+				</div></td>
+                                </tr>
+
+							</table>
+
+
+
+						</div>
+
+
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+<!--								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">-->
+
+								<div class="">
+
+								</div>
+							</div>
+
+							<div class="">
+								<span id="totalprice2"></span>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2">
+							Products
+						</h4>
+
+                        <div id="items2" class="mb-5">
+
+
+                            </div>
+
+                        <h4 class="mtext-109 cl2">
+							Price
+						</h4>
+
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<span class="mtext-110 cl2">
+									$<span>{{order.total_bill}}</span>
+								</span>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+<!--===============================================================================================-->
+
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+
+
+</body>
+
+
+{% endblock %}
+
+
+{% block js %}
+
+
+<!--<script>-->
+<!--{% if messages %}-->
+<!--alert('You Have a Order Remain to Payment !! To Order New, You Have to Pay The first One.')-->
+
+<!--{% endif %}-->
+
+<!--</script>-->
+
+
+
+
+
+
+
+
+
+
+<script>
+	// console.log('working');
+
+
+var all_prod=[];
+var all_prod_price=[];
+var all_prod_qty=[];
+
+
+var prod_details=[];
+
+
+var sum=0;
+var itemtotalprice=0;
+var totalprice=0;
+
+if ($.isEmptyObject(product_cart)){
+
+	mystr2 = `<ul class="header-cart-wrapitem w-full">
+					<li class="header-cart-item flex-w flex-t m-b-12">
+
+
+						<div class="header-cart-item-txt p-t-8">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								{{order.product_details}}
+							</a>
+						</div>
+					</li>
+					</ul>`
+	$('#items2').append(mystr2);
+
+		delivery=0;
+		discount=0;
+
+}
+else{
+	for (item in product_cart){
+	    // console.log('product ase')
+		let name = product_cart[item][1];
+		let qty = product_cart[item][0]
+		let itemprice=product_cart[item][2]
+		let itempic=product_cart[item][3]
+
+
+		sum = sum + qty;
+		itemtotalprice=qty* itemprice;
+		totalprice = totalprice + qty* itemprice;
+
+
+		prod_details= prod_details + `Product Name : ${name}, Product Quantity : ${qty}, Product Single Price : $ ${itemprice}, `
+
+		//all_prod=all_prod+', '+name
+		all_prod.push(name)
+		all_prod_price.push(itemprice)
+		all_prod_qty.push(qty)
+
+		mystr2 = `<ul class="header-cart-wrapitem w-full">
+					<li class="header-cart-item flex-w flex-t m-b-12">
+
+
+						<div class="header-cart-item-txt p-t-8">
+							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								{{order.product_details}}
+							</a>
+						</div>
+					</li>
+					</ul>`
+
+		$('#items2').append(mystr2);
+
+	}
+}
+
+
+
+
+{% if Thank %}
+alert('Thanks For ordering. Your Order Id is {{order_id}}. Check Your Email.')
+localStorage.clear();
+document.location='/'
+{% endif %}
+
+
+
+//update the cart
+function updateCart(product_cart){
+	var sum = 0;
+	for (var item in product_cart){
+		sum = sum + product_cart[item][0]
+		// console.log(item)
+	}
+	localStorage.setItem('product_cart', JSON.stringify(product_cart))
+	document.getElementById('product_cart').innerHTML = sum;
+	document.location='cart';
+	// updatePopover(product_cart);
+}
+
+
+
+
+</script>
+
+<!-- stripe payments -->
+<script>
+  var stripe = Stripe("pk_test_51IWuSRFzvY3Oon8K8D1ifAh7gdslJbsw3KJbpkDzsL6hD0Ghy3ofVA1xjLk5eZHOzZnUta8A0fykbjP0ScpxTe5m00PLxoAn9p");
+
+  var elements = stripe.elements();
+
+  var style = {
+    base: {
+      color: "#32325d",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4",
+      },
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a",
+    },
+  };
+
+  var card = elements.create("card", { style: style });
+
+  card.mount("#card-element");
+
+  card.on("change", function (event) {
+    var displayError = document.getElementById("card-errors");
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = "";
+    }
+  });
+
+  var form = document.getElementById("payment-form");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function (result) {
+      if (result.error) {
+        console.log(result.error);
+        var errorElement = document.getElementById("card-errors");
+        errorElement.textContent = result.error.message;
+      } else {
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
+
+  function stripeTokenHandler(token) {
+    var form = document.getElementById("payment-form");
+    var hiddenInput = document.createElement("input");
+    hiddenInput.setAttribute("type", "hidden");
+    hiddenInput.setAttribute("name", "stripeToken");
+    hiddenInput.setAttribute("value", token.id);
+    form.appendChild(hiddenInput);
+    form.submit();
+  }
+</script>
+<!-- stripe payments -->
+
+{% endblock %}

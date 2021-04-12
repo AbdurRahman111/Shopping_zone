@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders{% endblock %}
+
+
+{% block body %}
+
+
+</br>
+</br>
+</br>
+<div class="container">
+<h3><p class="text-center" style="color:#07889E;">My Orders</p></h3><hr>
+</div>
+
+{% if get_all_order %}
+{% for k in get_all_order %}
+<div class="card container">
+  <div class="card-body">
+    <h5 class="card-title">
+
+    </h5>
+    <h5>Order Id : {{k.order_id}}</h5>
+    <h7>{{k.product_details}}</h7></br>
+    <h7>Total Bill : {{k.total_bill}}</h7><br/>
+    <span class="badge badge-info badge-pill"> <h7>Date : {{k.order_date}}</h7></span>
+
+
+  </div>
+</div>
+<br/>
+{% endfor %}
+{% else %}
+<p class="text-center">You Have No Order To See</p>
+</br>
+</br>
+
+{% endif %}
+
+</br>
+</br>
+</br>
+</br>
+</br>
+
+{% endblock %}
